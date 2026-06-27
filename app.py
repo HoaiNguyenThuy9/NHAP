@@ -154,13 +154,13 @@ st.sidebar.caption("Ứng dụng tự động thẩm định hồ sơ đăng ký
 # ==============================================================================
 # TIÊU ĐỀ CHÍNH (HOMEPAGE HERO)
 # ==============================================================================
-st.markdown("<div class='main-title'>👑 ĐĂNG KÝ & THẨM ĐỊNH KHOẢN VAY TRỰC TUYẾN</div>", unsafe_allow_html=True)
+st.markdown("<div class='main-title'>👑 ĐĂNG KÝ VÀ THẨM ĐỊNH KHOẢN VAY TRỰC TUYẾN</div>", unsafe_allow_html=True)
 st.markdown("<div class='main-subtitle'>Hệ thống quản lý tài chính thông minh - Phân tích điều kiện duyệt cấp vốn tự động</div>", unsafe_allow_html=True)
 
 # ==============================================================================
 # PHẦN 1: THÔNG TIN ĐỊNH DANH KHÁCH HÀNG
 # ==============================================================================
-st.markdown("<div class='luxury-subheader'>🪪 1. Xác thực thông tin cá nhân đặc quyền</div>", unsafe_allow_html=True)
+st.markdown("<div class='luxury-subheader'>🪪 1. Xác thực thông tin cá nhân</div>", unsafe_allow_html=True)
 
 col_id1, col_id2, col_id3 = st.columns([1.5, 1.5, 2])
 with col_id1:
@@ -176,7 +176,7 @@ with col_id3:
 col_body1, col_body2 = st.columns(2)
 
 with col_body1:
-    st.markdown("<div class='luxury-subheader'>📋 2. Nhu cầu phân bổ vốn & Giải pháp</div>", unsafe_allow_html=True)
+    st.markdown("<div class='luxury-subheader'>📋 2. Nhu cầu phân bổ vốn và Giải pháp</div>", unsafe_allow_html=True)
     
     loai_vay = st.selectbox(
         "Bạn muốn vay theo hình thức nào?", 
@@ -208,7 +208,7 @@ with col_body1:
     )
 
 with col_body2:
-    st.markdown("<div class='luxury-subheader'>👤 3. Định biên tài chính & Lịch sử CIC</div>", unsafe_allow_html=True)
+    st.markdown("<div class='luxury-subheader'>👤 3. Định biên tài chính và Lịch sử CIC</div>", unsafe_allow_html=True)
     
     STKH = st.number_input("Số tuổi hiện tại của bạn (Tuổi):", min_value=0, max_value=120, value=30, step=1)
     hon_nhan = st.selectbox("Tình trạng hôn nhân hiện tại:", ["Độc thân", "Đã kết hôn", "Ly hôn/Khác"])
