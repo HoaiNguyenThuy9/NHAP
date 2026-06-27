@@ -1,241 +1,183 @@
 import streamlit as st
 
-# ==============================================================================
-# CẤU HÌNH TRANG WEB & THEME THEO PHONG CÁCH VIETCOMBANK
-# ==============================================================================
-st.set_page_config(page_title="Personal Loans - Vietcombank Style", layout="wide")
+# -----------------------------------------------------------------------------
+# CẤU HÌNH TRANG & GIAO DIỆN SANG TRỌNG (CUSTOM CSS)
+# -----------------------------------------------------------------------------
+st.set_page_config(
+    page_title="Hệ Thống Tài Chính Cao Cấp - Premium Finance", 
+    page_icon="👑", 
+    layout="wide"
+)
 
-# CSS tạo dựng layout phẳng, bo góc nhỏ nhẹ, nút tinh tế và màu xanh Vietcombank (#00a651)
+# Nhúng CSS để đổi màu chủ đạo sang Vàng Champagne, Trắng Ngọc Trai và Xanh Than
 st.markdown("""
     <style>
-    /* Nền tổng thể tinh giản trắng/xám mịn */
-    .stApp {
-        background-color: #fafafa;
-        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Đổi font chữ toàn trang thành font thanh lịch */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+    
+    html, body, [data-testid="stAppViewContainer"] {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #FAFAFA; /* Trắng ngọc trai */
+        color: #1A2530; /* Chữ màu xanh than đậm */
     }
     
-    /* Thanh điều hướng giả định phía trên */
-    .vcb-nav-sub {
-        background-color: #ffffff;
-        padding: 12px 20px;
-        border-bottom: 1px solid #e1e4e6;
-        margin-bottom: 25px;
-        border-radius: 8px;
-    }
-    .vcb-nav-sub span {
-        color: #78828a;
-        font-size: 0.9rem;
-    }
-    .vcb-nav-sub strong {
-        color: #00a651;
-        font-size: 0.9rem;
-    }
-
-    /* Tiêu đề trang */
-    .vcb-main-title {
-        color: #1c2430;
-        font-size: 2rem;
+    /* Tùy biến tiêu đề lớn phong cách Luxury */
+    .luxury-title {
+        font-family: 'Playfair Display', serif;
+        color: #C5A059; /* Vàng Champagne */
+        font-size: 3rem;
         font-weight: 700;
+        text-align: center;
         margin-bottom: 5px;
     }
-    .vcb-sub-title {
-        color: #78828a;
-        font-size: 1.05rem;
-        margin-bottom: 30px;
+    .luxury-subtitle {
+        text-align: center;
+        font-style: italic;
+        color: #5A6B7C;
+        margin-bottom: 40px;
     }
     
-    /* Thiết kế thẻ Card trắng chuẩn Vietcombank */
-    .vcb-card {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 0px; 
-        margin-bottom: 25px;
-        border: 1px solid #eef0f2;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        overflow: hidden;
-    }
-    
-    /* Phần chứa nội dung padding phía dưới ảnh */
-    .vcb-card-body {
+    /* Phong cách hóa các khối sản phẩm (Cards) */
+    .product-card {
+        background-color: #FFFFFF;
         padding: 25px;
-    }
-    
-    /* Tiêu đề trong mỗi Card dịch vụ */
-    .vcb-card-header {
-        color: #1c2430;
-        font-size: 1.25rem;
-        font-weight: 600;
-        border-left: 4px solid #00a651;
-        padding-left: 12px;
+        border-radius: 10px;
+        border-left: 5px solid #C5A059; /* Viền vàng mảnh bên trái */
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
         margin-bottom: 20px;
+        height: 250px;
+    }
+    .product-title {
+        font-family: 'Playfair Display', serif;
+        color: #1A2530;
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
     }
     
-    /* Định hình lại các ô nhập liệu Streamlit phẳng và thanh mảnh */
-    .stTextInput input, .stSelectbox div[data-baseweb="select"], .stNumberInput input {
-        border-radius: 6px !important;
-        border: 1px solid #dcdfe3 !important;
-        background-color: #ffffff !important;
-        color: #1c2430 !important;
+    /* Khối kết quả tính tiền */
+    .result-box {
+        background-color: #F4EFE3; /* Nền kem nhạt */
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #E6D8B8;
+        text-align: center;
+        margin-top: 15px;
     }
-    
-    /* Nút bấm Đăng ký Vay màu xanh lục Vietcombank */
-    div.stButton > button:first-child {
-        background-color: #00a651;
-        color: #ffffff !important;
-        border: none;
-        padding: 14px 30px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border-radius: 6px;
-        width: 100%;
-        transition: background-color 0.2s ease;
-        margin-top: 10px;
-    }
-    div.stButton > button:first-child:hover {
-        background-color: #008741;
-        border: none;
+    .result-amount {
+        color: #C5A059;
+        font-size: 1.8rem;
+        font-weight: bold;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Sidebar thương hiệu
-st.sidebar.markdown("<h2 style='color:#00a651; font-weight:800; text-align:center;'>Vietcombank</h2>", unsafe_allow_html=True)
-st.sidebar.markdown("<p style='text-align:center; color:#78828a; font-size:0.85rem;'>Chung niềm tin, vững tương lai</p>", unsafe_allow_html=True)
-st.sidebar.markdown("---")
-st.sidebar.info("🏢 **Đơn vị phát triển:** NHÓM 6\n\nHệ thống thẩm định dòng tiền tự động dành cho Khách hàng cá nhân.")
+# -----------------------------------------------------------------------------
+# HEADER (THANH ĐIỀU HƯỚNG)
+# -----------------------------------------------------------------------------
+col_logo, col_menu = st.columns([1, 2])
+with col_logo:
+    st.markdown("<h2 style='color: #C5A059; margin: 0; font-family: \"Playfair Display\";'>👑 PRIME FINANCE</h2>", unsafe_allow_html=True)
+with col_menu:
+    st.markdown("<p style='text-align: right; padding-top: 10px; color: #5A6B7C;'>Hotline Đặc Quyền: 1800-8888 (24/7)</p>", unsafe_allow_html=True)
 
-# ==============================================================================
-# THANH BREADCRUMB (ĐIỀU HƯỚNG PHỤ TRÊN WEBSITE)
-# ==============================================================================
-st.markdown("""
-    <div class="vcb-nav-sub">
-        <span>Trang chủ / Khách hàng cá nhân / Sản phẩm dịch vụ / </span><strong>Vay vốn trực tuyến</strong>
-    </div>
-""", unsafe_allow_html=True)
+st.write("---")
 
-# BANNER TRÊN CÙNG: Sử dụng ảnh phong cảnh cây cầu (KHCN_MB NGANG_Dark.webp)
-try:
-    st.image("KHCN_MB NGANG_Dark.webp", use_container_width=True)
-except:
-    st.warning("⚠️ Không tìm thấy file 'KHCN_MB NGANG_Dark.webp' trong thư mục.")
+# TIÊU ĐỀ CHÍNH
+st.markdown("<div class='luxury-title'>GIẢI PHÁP TÀI CHÍNH XỨNG TẦM VỊ THẾ</div>", unsafe_allow_html=True)
+st.markdown("<div class='luxury-subtitle'>Bảo mật - Tối ưu - Kiến tạo đặc quyền cá nhân dành riêng cho bạn</div>", unsafe_allow_html=True)
 
-st.markdown('<h1 class="vcb-main-title" style="margin-top:20px;">Gói Vay Vốn Khách Hàng Cá Nhân</h1>', unsafe_allow_html=True)
-st.markdown('<p class="vcb-sub-title">Vietcombank đồng hành cùng bạn hiện thực hóa các kế hoạch tiêu dùng, mua nhà, mua xe và sản xuất kinh doanh.</p>', unsafe_allow_html=True)
+# -----------------------------------------------------------------------------
+# THÂN TRANG: CHIA LÀM 2 CỘT (CÔNG CỤ TÍNH VÀ FORM ĐĂNG KÝ)
+# -----------------------------------------------------------------------------
+col_calc, col_form = st.columns([1.2, 1])
 
-# ==============================================================================
-# PHẦN 1: ĐỊNH DANH (Sử dụng ảnh Ava_NHA MOI THANH DAT_DT.webp làm cover)
-# ==============================================================================
-st.markdown('<div class="vcb-card">', unsafe_allow_html=True)
-try:
-    st.image("Ava_NHA MOI THANH DAT_DT.webp", use_container_width=True)
-except:
-    pass
+with col_calc:
+    st.markdown("<h3 style='font-family: \"Playfair Display\"; color: #1A2530;'>⚜️ Công Cụ Tính Khoản Vay Ưu Đãi</h3>", unsafe_allow_html=True)
+    st.caption("Kéo chọn hạn mức và thời gian để ước tính số tiền cần trả hàng tháng.")
+    
+    # Các thanh trượt chọn số tiền và thời gian
+    so_tien_vay = st.slider("Số tiền bạn cần vay (VND)", min_value=50000000, max_value=2000000000, value=200000000, step=50000000, format="%d")
+    thoi_gian_vay = st.slider("Thời hạn vay (Tháng)", min_value=12, max_value=60, value=24, step=6)
+    
+    # Giả định lãi suất cố định là 8.5% một năm (0.7% một tháng) để tính toán nhanh
+    lai_suat_nam = 8.5 / 100
+    lai_suat_thang = lai_suat_nam / 12
+    
+    # Công thức tính trả góp đều hàng tháng (Thành phần gốc + lãi)
+    goc_va_lai = (so_tien_vay * lai_suat_thang * (1 + lai_suat_thang)**thoi_gian_vay) / ((1 + lai_suat_thang)**thoi_gian_vay - 1)
+    
+    # Hiển thị kết quả tính toán
+    st.markdown(f"""
+        <div class="result-box">
+            <p style="margin: 0; color: #5A6B7C; font-size: 0.9rem;">Số tiền ước tính trả góp hàng tháng</p>
+            <p class="result-amount">{goc_va_lai:,.0f} VND</p>
+            <p style="margin: 0; color: #8A9AAB; font-size: 0.8rem;">*Ước tính dựa trên lãi suất ưu đãi hiện hành {lai_suat_nam*100}%/năm</p>
+        </div>
+    """, unsafe_allow_html=True)
 
-st.markdown("""
-        <div class="vcb-card-body">
-            <div class="vcb-card-header">Thông tin khách hàng đăng ký đơn vay</div>
-""", unsafe_allow_html=True)
-
-col_id1, col_id2, col_id3 = st.columns([1.5, 1.5, 2])
-with col_id1:
-    ho_ten = st.text_input("Họ và tên khách hàng:", value="Nguyễn Văn A")
-with col_id2:
-    cccd = st.text_input("Số CCCD (12 chữ số):", value="012345678901")
-with col_id3:
-    dia_chi = st.text_input("Địa chỉ cư trú hiện tại (Tỉnh/TP, Quận/Huyện...):", value="123 Đường Lê Lợi, Quận 1, TP. Hồ Chí Minh")
-
-st.markdown('</div></div>', unsafe_allow_html=True)
-
-# ==============================================================================
-# PHẦN 2 & 3: BỐ CỤC SONG SONG (GRID SYSTEM) CÓ HÌNH ẢNH RIÊNG
-# ==============================================================================
-col_grid1, col_grid2 = st.columns(2)
-
-with col_grid1:
-    # Cột nhu cầu vay: Sử dụng ảnh gia đình trước nhà (ChoVayTinDungTieuDung_mb.jpg)
-    st.markdown('<div class="vcb-card" style="height: 100%;">', unsafe_allow_html=True)
-    try:
-        st.image("ChoVayTinDungTieuDung_mb.jpg", use_container_width=True)
-    except:
-        pass
+with col_form:
+    st.markdown("<h3 style='font-family: \"Playfair Display\"; color: #1A2530;'>⚜️ Đăng Ký Tư Vấn Đặc Quyền</h3>", unsafe_allow_html=True)
+    
+    # Form nhận thông tin từ khách hàng
+    with st.form("loan_registration_form", clear_on_submit=True):
+        ho_ten = st.text_input("Họ và tên khách hàng *")
+        so_dien_thoai = st.text_input("Số điện thoại liên hệ *")
+        goi_vay_quan_tam = st.selectbox("Gói dịch vụ bạn quan tâm", [
+            "Vay Tín Chấp Đặc Quyền (Personal Loan)",
+            "Tài Trợ Sở Hữu Xe Sang (Auto Financing)",
+            "Giải Pháp Bất Động Sản An Cư (Home Loan)"
+        ])
+        ghi_chu = st.text_area("Yêu cầu riêng biệt (nếu có)", placeholder="Ví dụ: Giờ gọi điện tiện nhất...")
         
-    st.markdown("""
-            <div class="vcb-card-body">
-                <div class="vcb-card-header">Chi tiết nhu cầu vay vốn</div>
-    """, unsafe_allow_html=True)
-    
-    danh_sach_loai_vay = [
-        "Vay tiêu dùng tín chấp (Không cần tài sản)", 
-        "Vay mua Ô tô (Thế chấp bằng xe)", 
-        "Vay mua Bất động sản (Thế chấp bằng đất/nhà)", 
-        "Vay sản xuất kinh doanh"
-    ]
-    loai_vay = st.selectbox("Sản phẩm cho vay mong muốn:", danh_sach_loai_vay)
-    muc_dich = st.text_input("Mục đích sử dụng nguồn vốn giải ngân:", value="Mua nhà chung cư / Chi tiêu gia đình")
-    
-    STV = st.number_input("Số tiền đề xuất vay vốn (Triệu đồng):", min_value=0.0, value=100.0, step=10.0)
-    TGV = st.number_input("Thời gian đăng ký hoàn trả (Số năm):", min_value=0.5, value=5.0, step=0.5)
-    LSV = st.number_input("Lãi suất tạm tính (%/năm):", min_value=0.0, max_value=50.0, value=10.0, step=0.5) / 100
-    
-    if "Không cần tài sản" in loai_vay:
-        GTTSDB = 0.0
-        st.caption("ℹ️ Gói vay tiêu dùng tín chấp không yêu cầu giá trị tài sản bảo đảm.")
-    else:
-        GTTSDB = st.number_input("Giá trị ước tính của Tài sản thế chấp (Triệu đồng):", min_value=1.0, value=200.0, step=10.0)
-    
-    danh_sach_tra = [
-        "Gốc đều, lãi giảm dần (Kỳ đầu cao nhất, giảm dần về sau)", 
-        "Gốc và lãi chia đều cố định hàng tháng (Annuity)"
-    ]
-    hinh_thuc_tra = st.selectbox("Phương thức trả nợ gốc và lãi hằng kỳ:", danh_sach_tra)
-    
-    danh_sach_nguon_chinh = [
-        "Lương từ công việc cố định (Có HĐLĐ)", 
-        "Thu nhập từ hộ kinh doanh / Doanh nghiệp riêng", 
-        "Thu nhập từ việc cho thuê tài sản (Nhà, xe)", 
-        "Thu nhập tự do không cố định"
-    ]
-    nguon_chinh = st.selectbox("Nguồn thu nhập chính chi trả nợ gốc:", danh_sach_nguon_chinh)
-    
-    danh_sach_nguon_phu = [
-        "Không có", 
-        "Thu nhập bổ sung từ Vợ/Chồng", 
-        "Tiền gửi tiết kiệm / Tài sản tích lũy khác"
-    ]
-    nguon_phu = st.selectbox("Nguồn thu nhập tích lũy dự phòng:", danh_sach_nguon_phu)
-    st.markdown('</div></div>', unsafe_allow_html=True)
-
-with col_grid2:
-    # Cột tài chính & CIC: Sử dụng ảnh nam thanh niên mặc áo len xanh (1 (1).webp)
-    st.markdown('<div class="vcb-card" style="height: 100%;">', unsafe_allow_html=True)
-    try:
-        st.image("1 (1).webp", use_container_width=True)
-    except:
-        pass
+        # Nút submit được thiết kế lại
+        submit_btn = st.form_submit_button("GỬI YÊU CẦU ĐĂNG KÝ")
         
+        if submit_btn:
+            if ho_ten and so_dien_thoai:
+                st.success(f"Xin cảm ơn ông/bà **{ho_ten}**. Chuyên viên cấp cao của Prime Finance sẽ liên hệ lại qua số {so_dien_thoai} trong vòng 15 phút.")
+                # Ở đây bạn có thể viết thêm code kết nối Database để lưu data khách hàng.
+            else:
+                st.error("Vui lòng điền đầy đủ Họ tên và Số điện thoại để chúng tôi hỗ trợ.")
+
+st.write("---")
+
+# -----------------------------------------------------------------------------
+# CÁC GÓI SẢN PHẨM (PRODUCT CARDS)
+# -----------------------------------------------------------------------------
+st.markdown("<h3 style='font-family: \"Playfair Display\"; text-align: center; color: #1A2530; margin-bottom: 25px;'>Danh Mục Giải Pháp Tài Chính</h3>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
     st.markdown("""
-            <div class="vcb-card-body">
-                <div class="vcb-card-header">Năng lực tài chính & Lịch sử tín dụng</div>
+        <div class="product-card">
+            <div class="product-title">👑 Vay Tín Chấp Đặc Quyền</div>
+            <p style="font-size: 0.9rem; color: #5A6B7C;">Hạn mức tối đa lên tới 1 Tỷ đồng không cần tài sản thế chấp. Thủ tục bảo mật, giải ngân siêu tốc trong 24 giờ làm việc.</p>
+            <p style="font-size: 0.85rem; color: #C5A059; font-weight: bold;">Lãi suất từ: 7.9% / năm</p>
+        </div>
     """, unsafe_allow_html=True)
-    
-    STKH = st.number_input("Số tuổi hiện tại của chủ đơn:", min_value=0, max_value=120, value=30, step=1)
-    hon_nhan = st.selectbox("Tình trạng hôn nhân dân sự:", ["Độc thân", "Đã kết hôn", "Ly hôn/Khác"])
-    
-    nghe_nghiep_mapping = {
-        "Nhân viên văn phòng (HĐLĐ vô thời hạn)": "Nhân viên văn phòng (Có HĐLĐ)",
-        "Kinh doanh tự do / Chủ doanh nghiệp": "Chủ cơ sở kinh doanh / Doanh nghiệp",
-        "Công chức / Viên chức nhà nước": "Làm việc tại cơ quan Nhà nước",
-        "Lao động tự do / Tạm thời": "Lao động tự do / Nghề nghiệp tạm thời"
-    }
-    nghe_chon = st.selectbox("Phân loại nhóm công việc/nghề nghiệp:", list(nghe_nghiep_mapping.keys()))
-    nghe_nghiep = nghe_nghiep_mapping[nghe_chon]
-    
-    TN = st.number_input("Tổng mức thu nhập hằng tháng (Triệu đồng):", min_value=0.0, value=30.0, step=5.0)
-    SNPT = st.number_input("Số người đang phụ thuộc kinh tế trực tiếp:", min_value=0, value=1, step=1)
-    PTMC = st.number_input("Số tiền đang trả nợ định kỳ ở các TCTD khác (Triệu đồng):", min_value=0.0, value=0.0, step=1.0)
-    
+
+with col2:
     st.markdown("""
-        <p style="margin-top:15px; margin-bottom:5px; font-weight:600; color:#1c2430;">Báo cáo quan hệ tín dụng cũ:</p>
+        <div class="product-card">
+            <div class="product-title">🏎️ Tài Trợ Sở Hữu Xe Sang</div>
+            <p style="font-size: 0.9rem; color: #5A6B7C;">Hỗ trợ tới 85% giá trị xe, thời gian vay linh hoạt tới 7 năm. Liên kết trực tiếp với các hãng xe hạng sang toàn quốc.</p>
+            <p style="font-size: 0.85rem; color: #C5A059; font-weight: bold;">Lãi suất từ: 6.8% / năm</p>
+        </div>
     """, unsafe_allow_html=True)
-    
-    danh_sach_no_cu =
+
+with col3:
+    st.markdown("""
+        <div class="product-card">
+            <div class="product-title">🏛️ Bất Động Sản An Cư</div>
+            <p style="font-size: 0.9rem; color: #5A6B7C;">Giải pháp sở hữu căn hộ cao cấp hoặc biệt thự nghỉ dưỡng. Hạn mức vay không giới hạn dựa trên tài sản đảm bảo.</p>
+            <p style="font-size: 0.85rem; color: #C5A059; font-weight: bold;">Lãi suất từ: 5.5% / năm</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+# -----------------------------------------------------------------------------
+# FOOTER
+# -----------------------------------------------------------------------------
+st.write("---")
+st.markdown("<p style='text-align: center; color: #8A9AAB; font-size: 0.8rem;'>© 2026 Prime Finance. Mọi quyền được bảo lưu. Bản quyền giao diện thuộc về định hướng Premium UI.</p>", unsafe_allow_html=True)
