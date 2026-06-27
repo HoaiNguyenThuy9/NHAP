@@ -1,7 +1,7 @@
 import streamlit as st
 
 # ==============================================================================
-# ĐỊNH CẤU HÌNH TRANG & CSS NÂNG CAO (CHUẨN UI/UX FINTECH NGÂN HÀNG)
+# CẤU HÌNH TRANG & CSS NÂNG CAO (CHUẨN UI/UX FINTECH NGÂN HÀNG)
 # ==============================================================================
 st.set_page_config(page_title="APP CHO VAY ONLINE KHCN - THUY HOAI", layout="wide")
 
@@ -83,7 +83,6 @@ st.markdown("""
 # ==============================================================================
 # THANH SIDEBAR
 # ==============================================================================
-# Sử dụng link ảnh icon online để phòng trường hợp file "tài chính.png" của bạn bị lỗi đường dẫn
 URL_LOGO = "https://cdn-icons-png.flaticon.com/512/2830/2830284.png"
 st.sidebar.image(URL_LOGO, width=100)
 st.sidebar.markdown("<h3 style='color:#0a4d3c; margin-top:10px;'>HỆ THỐNG TÍN DỤNG</h3>", unsafe_allow_html=True)
@@ -177,4 +176,37 @@ with col_grid2:
     SNPT = st.number_input("Số người phụ thuộc tài chính trong gia đình:", min_value=0, value=1, step=1)
     PTMC = st.number_input("Số tiền đang phải trả gốc lãi nơi khác hằng tháng (Triệu đồng):", min_value=0.0, value=0.0, step=1.0)
     
-    st.markdown("<p style='margin-top:15px; margin-bottom:5px; font-weight:
+    st.markdown("""
+        <p style="margin-top:15px; margin-bottom:5px; font-weight:600; color:#0a4d3c;">📊 Lịch sử vay mượn tín dụng cũ:</p>
+    """, unsafe_allow_html=True)
+    
+    tinh_trang_no = st.selectbox(
+        "Các khoản nợ cũ hiện nay có bị trễ hạn thanh toán không?",
+        [
+            "Tôi luôn trả nợ đúng hạn / Chưa từng vay mượn ai",
+            "Tôi đang có khoản nợ bị quá hạn dưới 90 ngày chưa kịp thanh toán",
+            "Tôi đang có nợ quá hạn quá lâu (trên 90 ngày) hoặc đang bị nợ xấu"
+        ]
+    )
+    
+    if tinh_trang_no == "Tôi luôn trả nợ đúng hạn / Chưa từng vay mượn ai":
+        CIC = "Nhóm 1 - Nợ đủ tiêu chuẩn"
+    elif tinh_trang_no == "Tôi đang có khoản nợ bị quá hạn dưới 90 ngày chưa kịp thanh toán":
+        CIC = "Nhóm 2 - Nợ cần chú ý"
+    else:
+        CIC = "Nhóm 3 đến 5 - Nợ xấu"
+
+    so_lan_tra_cham = st.number_input("Trong vòng 1 năm qua, số lần nộp chậm/trễ tiền gốc lãi:", min_value=0, value=0, step=1)
+    
+    if so_lan_tra_cham > 0 or CIC != "Nhóm 1 - Nợ đủ tiêu chuẩn":
+        ly_do_tra_cham = st.selectbox(
+            "Nguyên nhân chính dẫn tới trả chậm:",
+            [
+                "Do sơ xuất, quên ngày thanh toán hoặc do lỗi ứng dụng/lỗi ngân hàng",
+                "Do công ty chậm lương, hoặc đối tác thanh toán tiền chậm vài ngày",
+                "Do công việc/kinh doanh gặp khó khăn, nguồn thu nhập bị sụt giảm mạnh",
+                "Tôi không muốn trả khoản nợ đó hoặc đang có tranh chấp với bên cho vay"
+            ]
+        )
+        ly_do_mapping = {
+            "Do sơ xuất
