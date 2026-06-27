@@ -1,7 +1,7 @@
 import streamlit as st
 
 # ==============================================================================
-# CẤU HÌNH TRANG WEB & THEME CỦA VIETCOMBANK
+# CẤU HÌNH TRANG WEB & THEME CỦA VIETCOMBANK (UI/UX CHUẨN)
 # ==============================================================================
 st.set_page_config(page_title="Personal Loans - Vietcombank Style", layout="wide")
 
@@ -48,10 +48,16 @@ st.markdown("""
     .vcb-card {
         background: #ffffff;
         border-radius: 12px;
-        padding: 25px;
+        padding: 0px; /* Để ảnh tràn viền phía trên */
         margin-bottom: 25px;
         border: 1px solid #eef0f2;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        overflow: hidden;
+    }
+    
+    /* Phần chứa nội dung padding phía dưới ảnh */
+    .vcb-card-body {
+        padding: 25px;
     }
     
     /* Tiêu đề trong mỗi Card dịch vụ */
@@ -62,6 +68,13 @@ st.markdown("""
         border-left: 4px solid #00a651;
         padding-left: 12px;
         margin-bottom: 20px;
+    }
+    
+    /* Ảnh minh họa của gói sản phẩm */
+    .vcb-thumb {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
     }
     
     /* Định hình lại các ô nhập liệu Streamlit phẳng và thanh mảnh */
@@ -112,10 +125,14 @@ st.markdown('<h1 class="vcb-main-title">Gói Vay Vốn Khách Hàng Cá Nhân</h
 st.markdown('<p class="vcb-sub-title">Vietcombank đồng hành cùng bạn hiện thực hóa các kế hoạch tiêu dùng, mua nhà, mua xe và sản xuất kinh doanh.</p>', unsafe_allow_html=True)
 
 # ==============================================================================
-# PHẦN 1: ĐỊNH DANH (Bọc trong Card dịch vụ)
+# PHẦN 1: ĐỊNH DANH (Bọc trong Card dịch vụ kèm Ảnh minh họa)
 # ==============================================================================
-st.markdown('<div class="vcb-card">', unsafe_allow_html=True)
-st.markdown('<div class="vcb-card-header">Thông tin khách hàng đăng ký</div>', unsafe_allow_html=True)
+st.markdown("""
+    <div class="vcb-card">
+        <img class="vcb-thumb" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200" alt="Định danh">
+        <div class="vcb-card-body">
+            <div class="vcb-card-header">Thông tin khách hàng đăng ký đơn vay</div>
+""", unsafe_allow_html=True)
 
 col_id1, col_id2, col_id3 = st.columns([1.5, 1.5, 2])
 with col_id1:
@@ -125,16 +142,20 @@ with col_id2:
 with col_id3:
     dia_chi = st.text_input("Địa chỉ cư trú hiện tại (Tỉnh/TP, Quận/Huyện...):", value="123 Đường Lê Lợi, Quận 1, TP. Hồ Chí Minh")
 
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('</div></div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# PHẦN 2 & 3: BỐ CỤC THẺ LAYOUT SONG SONG (GRID SYSTEM)
+# PHẦN 2 & 3: BỐ CỤC THỂ LAYOUT SONG SONG CÓ HÌNH ẢNH TRONG MỖI THẺ CARD
 # ==============================================================================
 col_grid1, col_grid2 = st.columns(2)
 
 with col_grid1:
-    st.markdown('<div class="vcb-card" style="height: 100%;">', unsafe_allow_html=True)
-    st.markdown('<div class="vcb-card-header">Chi tiết nhu cầu vay vốn</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="vcb-card" style="height: 100%;">
+            <img class="vcb-thumb" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=600" alt="Gói vay">
+            <div class="vcb-card-body">
+                <div class="vcb-card-header">Chi tiết nhu cầu vay vốn</div>
+    """, unsafe_allow_html=True)
     
     danh_sach_loai_vay = [
         "Vay tiêu dùng tín chấp (Không cần tài sản)", 
@@ -175,11 +196,15 @@ with col_grid1:
         "Tiền gửi tiết kiệm / Tài sản tích lũy khác"
     ]
     nguon_phu = st.selectbox("Nguồn thu nhập tích lũy dự phòng:", danh_sach_nguon_phu)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 with col_grid2:
-    st.markdown('<div class="vcb-card" style="height: 100%;">', unsafe_allow_html=True)
-    st.markdown('<div class="vcb-card-header">Năng lực tài chính & Lịch sử tín dụng</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="vcb-card" style="height: 100%;">
+            <img class="vcb-thumb" src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=600" alt="Tài chính">
+            <div class="vcb-card-body">
+                <div class="vcb-card-header">Năng lực tài chính & Lịch sử tín dụng</div>
+    """, unsafe_allow_html=True)
     
     STKH = st.number_input("Số tuổi hiện tại của chủ đơn:", min_value=0, max_value=120, value=30, step=1)
     hon_nhan = st.selectbox("Tình trạng hôn nhân dân sự:", ["Độc thân", "Đã kết hôn", "Ly hôn/Khác"])
@@ -237,7 +262,7 @@ with col_grid2:
         ly_do_tra_cham = "Không có trả chậm"
         ly_do_chuyen_doi = "Không có trả chậm"
         
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 # ==============================================================================
 # KHỐI HIỂN THỊ DÒNG TIỀN ƯỚC TÍNH SƠ BỘ
@@ -282,7 +307,7 @@ if st.button("📊 ĐĂNG KÝ VAY VỐN VÀ PHÂN TÍCH HỒ SƠ", type="primary
             Tich_Luy_Con_Lai = thu_nhap_rong - PTMM
 
             # Giao diện hiển thị kết quả đồng bộ
-            st.markdown('<div class="vcb-card">', unsafe_allow_html=True)
+            st.markdown('<div class="vcb-card" style="padding:25px;">', unsafe_allow_html=True)
             
             tab1, tab2, tab3 = st.tabs(["📈 Báo cáo phê duyệt sơ bộ", "📋 Phân tích dòng tiền định lượng", "💡 Giải pháp cấu trúc khoản vay"])
             
